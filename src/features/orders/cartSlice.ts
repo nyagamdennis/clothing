@@ -65,6 +65,7 @@ const initialState: cartState = {
 
 export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
   const response = await axios.get<Cart[]>(`${apiUrl}/cart/`);
+  console.log('cart data ', response.data)
   return response.data;
 });
 
@@ -196,7 +197,8 @@ const cartSlice = createSlice({
 export const selectAllCart = (state: { cart: cartState }) => state.cart.cart;
 export const getCartStatus = (state: { cart: cartState }) => state.cart.status;
 export const getCartError = (state: { cart: cartState }) => state.cart.error;
-export const getOrderCount = (state: { cart: cartState }) => state.cart.orderCount;
+export const getOrderCount = (state: { cart: cartState }) => 
+  state.cart.cart.filter(cartItem => !cartItem.delivered).length;
 
 
 export const { cartAdded } = cartSlice.actions;

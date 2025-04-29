@@ -20,7 +20,7 @@ const MetricFormatter: React.FC<MetricFormatterProps> = ({ total }) => {
         maximumFractionDigits: 2,
     });
 
-    return <span>{formattedTotal} inches</span>;
+    return <span>{formattedTotal} metres</span>;
 };
 
 

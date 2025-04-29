@@ -625,7 +625,7 @@ setAddingNewProduct(true);
 
 
   const filteredProducts = all_products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    product.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -670,7 +670,7 @@ setAddingNewProduct(true);
           <div className='bg-white mt-6 shadow-lg rounded-lg overflow-x-auto'>
             <table className='min-w-full text-left text-gray-900 border-collapse divide-y divide-gray-200'>
               <thead className="text-sm font-semibold ">
-                <tr className="text-gray-600 ">
+                <tr className="text-gray-600 text-center">
                   <th className="px-3 py-4">Product</th>
                   <th className="px-3 py-4">Material</th>
                   <th className="px-3 py-4">Color</th>
@@ -684,7 +684,7 @@ setAddingNewProduct(true);
                 {filteredProducts.map((product) => (
                   Array.isArray(product.prod) && product.prod.length > 0 ? (
                     product.prod.map((variation, index) => (
-                      <tr key={`${product.name}-${index}`} className="hover:bg-gray-100">
+                      <tr key={`${product.name}-${index}`} className="hover:bg-gray-100 text-center">
                         {index === 0 && (
                           <td className="px-3 py-4 font-medium align-top" rowSpan={product.prod.length}>
                             <div className='flex flex-col items-center'>
@@ -734,12 +734,12 @@ setAddingNewProduct(true);
                             >
                               Cart
                             </button>
-                            <button
+                            <buttone
                               onClick={() => handleClickOpenRecievedProdcut(product, variation)}
                               className="bg-pink-400 px-2 py-0.5 rounded-md text-white font-semibold flex items-center gap-2"
                             >
                               Recieve
-                            </button>
+                            </buttone>
                             <button
                               onClick={() => handleProductClickEdit(product, variation)}
                               className="bg-green-500 px-2 py-0.5 rounded-md text-white font-semibold flex items-center gap-2"
@@ -1343,7 +1343,12 @@ setAddingNewProduct(true);
                             </div>
                           )}
                           <label
-                            onClick={() => handleCompleteSale(selectedCompleteSale === 'complete' ? '' : 'complete')}
+                          onClick={() => {
+                            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                            setDeliveryDate(today); // Set the delivery date to today
+                            handleCompleteSale(selectedCompleteSale === 'complete' ? '' : 'complete');
+                          }}
+                            // onClick={() => handleCompleteSale(selectedCompleteSale === 'complete' ? '' : 'complete')}
                             className={`flex items-center gap-2 border px-2 py-1 cursor-pointer ${selectedCompleteSale === 'complete' ? 'border-green-400' : 'border-gray-300'
                               }`}
                           >
